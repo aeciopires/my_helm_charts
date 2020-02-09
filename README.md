@@ -7,7 +7,7 @@
   - [Contributing](#contributing)
   - [Developers](#developers)
   - [License](#license)
-- [Prerequisites](#prerequisites)
+- [Prerequisites to Development and Test of Helm Charts](#prerequisites-to-development-and-test-of-helm-charts)
   - [Configure Access Account AWS](#configure-access-account-aws)
   - [AWS Regions and Availability Zones](#aws-regions-and-availability-zones)
   - [Install Docker-CE](#install-docker-ce)
@@ -15,7 +15,10 @@
   - [Install Terraform 0.11](#install-terraform-011)
   - [Install Terraform 0.12](#install-terraform-012)
   - [Install Kubectl](#install-kubectl)
-- [Management Kubernetes Cluster](#management-kubernetes-cluster)
+  - [Install Helm 3](#install-helm-3)
+  - [Install Helmfile](#install-helmfile)
+- [Management Kubernetes Cluster in Test Environment in AWS](#management-kubernetes-cluster-in-test-environment-in-aws)
+  - [Access SSH Kubernetes Nodes](#access-ssh-kubernetes-nodes)
 
 <!-- TOC -->
 
@@ -46,7 +49,7 @@ mail: http://blog.aeciopires.com/contato
 
 GPL-3.0 2020 Aécio dos Santos Pires
 
-# Prerequisites
+# Prerequisites to Development and Test of Helm Charts
 
 ## Configure Access Account AWS
 
@@ -281,84 +284,42 @@ https://github.com/peelmicro/learn-devops-the-complete-kubernetes-course
 
 ---
 
-# Management Kubernetes Cluster
+## Install Helm 3
 
-How to start Kubernetes cluster by using Kops and Terraform
+Execute os seguintes comandos para instalar o helm3.
 
-First create a `zone DNS private` in Router53 service of AWS with name `devopsinuse.com` or other domain name in region `us-east-2` (Ohio).
-
-Second create a bucket S3 public with name `aecio.devopsinuse.com` or other domain name.
+Documentation: https://helm.sh/docs/
 
 ```bash
-SSH_KEYS=~/.ssh/udemy_devopsinuse
- 
-if [ ! -f "$SSH_KEYS" ]
-then
-    echo -e "\nCreating SSH keys ..."
-    ssh-keygen -t rsa -C "udemy.course" -N '' -f ~/.ssh/udemy_devopsinuse
+sudo su
+
+HELM_TAR_FILE=helm-v3.0.3-linux-amd64.tar.gz
+HELM_URL=https://get.helm.sh
+HELM_BIN=helm3
+
+function install_helm3 {
+
+if [ -z $(which $HELM_BIN) ]; then
+    wget ${HELM_URL}/${HELM_TAR_FILE}
+    tar -xvzf ${HELM_TAR_FILE}
+    chmod +x linux-amd64/helm
+    sudo cp linux-amd64/helm /usr/local/bin/$HELM_BIN
+    sudo ln -sfn /usr/local/bin/$HELM_BIN /usr/local/bin/helm
+    rm -rf ${HELM_TAR_FILE} linux-amd64
+    echo -e "\nwhich ${HELM_BIN}"
+    which ${HELM_BIN}
 else
-    echo -e "\nSSH keys are already in place!"
+    echo "Helm 3 is most likely installed"
 fi
- 
-echo -e "\nCreating kubernetes cluster ...\n"
+}
 
-cd ~/udemy
+install_helm3
 
-kops create cluster \
- --name=aecio.devopsinuse.com \
- --state=s3://aecio.devopsinuse.com \
- --authorization RBAC \
- --zones=us-east-2a \
- --node-count=2 \
- --node-size=t2.micro \
- --master-size=t2.micro \
- --master-count=1 \
- --dns private \
- --out=terraform_code \
- --target=terraform \
- --ssh-public-key=~/.ssh/udemy_devopsinuse.pub
+which helm3
 
-cd ~/udemy/terraform_code
+helm3 version
 
-terraform init
-terraform validate
-terraform plan
-terraform apply
-terraform show
-```
-
-Get the public IP of instace `master.aecio.devopsinuse.com` and create a entry in `/etc/hosts` file for public IP with name `api.aecio.devopsinuse.com` and execute the commands to validate cluster and list nodes.
-
-```bash
-kops validate cluster --state=s3://aecio.devopsinuse.com
-
-kubectl get nodes --show-labels
-
-ssh -i ~/.ssh/udemy_devopsinuse admin@api.aecio.devopsinuse.com
-
-```
-
-Delete cluster:
-
-```bash
-cd ~/udemy/terraform_code
-
-terraform destroy --auto-approve
-
-kops delete cluster \
- --name=aecio.devopsinuse.com \
- --state=s3://aecio.devopsinuse.com \
- --yes
-```
-
-Update cluster:
-
-```bash
-kops update cluster \
- --name=aecio.devopsinuse.com \
- --state=s3://aecio.devopsinuse.com \
- --out=terraform_code --target=terraform \
- --ssh-public-key=~/.ssh/udemy_devopsinuse.pub
+exit
 ```
 
 ---
@@ -369,3 +330,161 @@ https://github.com/peelmicro/learn-devops-the-complete-kubernetes-course
 
 ---
 
+
+## Install Helmfile
+
+Execute os seguintes comandos para instalar o helm.
+
+Documentation: https://github.com/roboll/helmfile
+
+```bash
+sudo su
+ 
+HELMFILE_VERSION=v0.99.0
+HELMFILE_DOWNLOADED_FILENAME=helmfile_linux_amd64
+HURL=https://github.com/roboll/helmfile/releases/download
+HELMFILE_URL=${HURL}/${HELMFILE_VERSION}/${HELMFILE_DOWNLOADED_FILENAME}
+HELMFILE_BIN=helmfile
+ 
+function install_helmfile {
+ 
+if [ -z $(which $HELMFILE_BIN) ]; then
+    wget ${HELMFILE_URL}
+    chmod +x ${HELMFILE_DOWNLOADED_FILENAME}
+    sudo mv ${HELMFILE_DOWNLOADED_FILENAME} /usr/local/bin/${HELMFILE_BIN}
+    echo -e "\nexecuting: which ${HELMFILE_BIN}"
+    which ${HELMFILE_BIN}
+else
+    echo"Helmfile is most likely installed"
+fi
+}
+ 
+install_helmfile
+ 
+which helmfile
+ 
+helmfile --version
+```
+
+---
+
+Credits: Juan Pablo Perez - https://www.linkedin.com/in/juanpabloperezpeelmicro/ 
+
+https://github.com/peelmicro/learn-devops-the-complete-kubernetes-course
+
+---
+
+# Management Kubernetes Cluster in Test Environment in AWS
+
+How to start Kubernetes cluster by using Kops and Terraform
+
+First create a `zone DNS private` in Router53 service of AWS with name `myenvtest.com` or other domain name in region `us-east-2` (Ohio).
+
+Second create a bucket S3 public with name `aecio.myenvtest.com` or other domain name.
+
+```bash
+SSH_KEYS=~/.ssh/myenvtest
+ 
+if [ ! -f "$SSH_KEYS" ]
+then
+    echo -e "\nCreating SSH keys ..."
+    ssh-keygen -t rsa -C "myenvtest" -N '' -f ~/.ssh/myenvtest
+else
+    echo -e "\nSSH keys are already in place!"
+fi
+ 
+echo -e "\nCreating kubernetes cluster ...\n"
+
+mkdir -p ~/myenvtest
+
+cd ~/myenvtest
+
+kops create cluster \
+ --name=aecio.myenvtest.com \
+ --state=s3://aecio.myenvtest.com \
+ --authorization RBAC \
+ --zones=us-east-2a \
+ --node-count=2 \
+ --node-size=t2.micro \
+ --master-size=t2.micro \
+ --master-count=1 \
+ --dns private \
+ --out=terraform_code \
+ --target=terraform \
+ --ssh-public-key=~/.ssh/myenvtest.pub
+
+cd ~/myenvtest/terraform_code
+
+terraform11 init
+terraform11 validate
+terraform11 plan
+terraform11 apply
+terraform11 show
+```
+
+These publicly accessible IP addresses can be retrieved even from your command line
+
+```bash
+aws ec2 describe-instances   --query "Reservations[*].Instances[*].{Name:Tags[?Key=='Name']|[0].Value,IP:PublicIpAddress}"   --output=text
+```
+
+Get the public IP of instace `master-us-east-2a.masters.aecio.myenvtest.com` and create a entry in `/etc/hosts` file for public IP with name `api.aecio.myenvtest.com` and execute the commands to validate cluster and list nodes.
+
+```bash
+kops validate cluster --state=s3://aecio.myenvtest.com
+
+kubectl get nodes --show-labels
+
+ssh -i ~/.ssh/myenvtest admin@api.aecio.myenvtest.com
+
+```
+
+Delete cluster:
+
+```bash
+cd ~/myenvtest/terraform_code
+
+terraform11 destroy --auto-approve
+
+kops delete cluster \
+ --name=aecio.myenvtest.com \
+ --state=s3://aecio.myenvtest.com \
+ --yes
+```
+
+Update cluster:
+
+```bash
+kops update cluster \
+ --name=aecio.myenvtest.com \
+ --state=s3://aecio.myenvtest.com \
+ --out=terraform_code --target=terraform \
+ --ssh-public-key=~/.ssh/myenvtest.pub
+```
+
+---
+
+Credits: Juan Pablo Perez - https://www.linkedin.com/in/juanpabloperezpeelmicro/ 
+
+https://github.com/peelmicro/learn-devops-the-complete-kubernetes-course
+
+---
+
+
+## Access SSH Kubernetes Nodes
+
+How to SSH to physical EC2 instances in AWS
+
+```bash
+ssh -i ~/.ssh/myenvtest.pub admin@<public_ip_address_of_node_1>
+ssh -i ~/.ssh/myenvtest.pub admin@<public_ip_address_of_node_2>
+ssh -i ~/.ssh/myenvtest.pub admin@<public_ip_address_of_master>
+```
+
+---
+
+Credits: Juan Pablo Perez - https://www.linkedin.com/in/juanpabloperezpeelmicro/ 
+
+https://github.com/peelmicro/learn-devops-the-complete-kubernetes-course
+
+---
