@@ -574,7 +574,6 @@ Credits: Helm Doc Community
 
 * https://helm.sh/docs/intro/quickstart
 * https://helm.sh/docs/intro/using_helm
-* https://helm.sh/docs/intro/using_helm
 
 ---
 
@@ -593,7 +592,6 @@ Credits: Helm Doc Community
 
 * https://helm.sh/docs/intro/quickstart
 * https://helm.sh/docs/intro/using_helm
-* https://helm.sh/docs/intro/using_helm
 
 ---
 
@@ -611,7 +609,6 @@ See documentation:
 Credits: Helm Doc Community
 
 * https://helm.sh/docs/intro/quickstart
-* https://helm.sh/docs/intro/using_helm
 * https://helm.sh/docs/intro/using_helm
 
 ---

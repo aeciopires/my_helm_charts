@@ -1,0 +1,38 @@
+apiVersion: v2
+name: influxdb
+description: My first Helm chart of InfluxDB for Kubernetes
+keywords:
+  - influxdb
+  - database
+  - series
+  - data
+  - monitoring
+home: https://github.com/aeciopires/my_helm_charts
+sources:
+  - https://github.com/aeciopires/my_helm_charts
+
+# SVG or PNG
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/influxdb-relay/img/influxdb-relay-stack-220x234.png
+
+maintainers:
+  - name: Aecio Pires
+    email: aeciopires@gmail.com
+    url: http://aeciopires.com
+
+# A chart can be either an 'application' or a 'library' chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They're included as
+# a dependency of application charts to inject those utilities and functions into the rendering
+# pipeline. Library charts do not define any templates and therefore cannot be deployed.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+version: 0.1.4
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application.
+#appVersion: 2.0.0-beta
