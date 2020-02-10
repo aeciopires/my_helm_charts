@@ -31,18 +31,18 @@ spec:
             - name: http
               containerPort: 9999
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /metrics
-              host: 172.17.0.1
-              port: 9999
-            initialDelaySeconds: 120
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /metrics
-              host: 172.17.0.1
-              port: 9999
+#          livenessProbe:
+#            httpGet:
+#              path: /metrics
+#              host: 172.17.0.1
+#              port: http
+#            initialDelaySeconds: 120
+#            periodSeconds: 10
+#          readinessProbe:
+#            httpGet:
+#              path: /metrics
+#              host: 172.17.0.1
+#              port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
