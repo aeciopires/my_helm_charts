@@ -1,3 +1,5 @@
+[![Codeac](https://static.codeac.io/badges/2-239322460.svg "Codeac.io")](https://app.codeac.io/github/aeciopires/my_helm_charts)
+
 # my_helm_charts
 
 <!-- TOC -->
