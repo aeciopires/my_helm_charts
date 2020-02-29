@@ -99,7 +99,11 @@ kubectl create namespace monitoring
 Deploy Grafana with Helm in cluster Kubernetes.
 
 ```bash
-helm secrets upgrade grafana -f ~/my_helm_charts/monitoring/grafana/minikube/values.yaml -f ~/my_helm_charts/monitoring/grafana/minikube/secrets.yaml bitnami/grafana -n monitoring --install
+helm secrets upgrade grafana \
+ -f ~/my_helm_charts/monitoring/grafana/minikube/values.yaml \
+ -f ~/my_helm_charts/monitoring/grafana/minikube/secrets.yaml \
+ bitnami/grafana \
+ -n monitoring --install
 ```
 
 View the pods of Grafana.
