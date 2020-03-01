@@ -67,7 +67,7 @@ Execute Helm Update if repo bitnami is installed.
 helm repo update
 ```
 
-Download and custom configure the parameters for deploy of Grafana.
+Download and configure the parameters for deploy of Grafana.
 
 ```bash
 cd ~
