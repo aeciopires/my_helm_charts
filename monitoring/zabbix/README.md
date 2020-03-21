@@ -25,7 +25,7 @@ Visit https://github.com/aeciopires/my_helm_charts
 
 ## Credits
 
-Contribuitora of GitHub Repo https://github.com/cetic/helm-zabbix
+Contribuitors of GitHub Repo https://github.com/cetic/helm-zabbix
 
 ## Developers
 
