@@ -49,7 +49,6 @@ Install Helm 3 (visit https://github.com/aeciopires/my_helm_charts).
 Install plugin Helm secrets.
 
 ```bash
-helm init
 helm plugin install https://github.com/futuresimple/helm-secrets
 ```
 
