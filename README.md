@@ -19,6 +19,7 @@
   - [Install Kubectl](#install-kubectl)
   - [Install Helm 3](#install-helm-3)
   - [Install Helmfile](#install-helmfile)
+  - [Install Sops](#install-sops)
 - [Management Kubernetes Cluster in Test Environment in AWS](#management-kubernetes-cluster-in-test-environment-in-aws)
   - [Access SSH Kubernetes Nodes](#access-ssh-kubernetes-nodes)
 - [Basic Commands of Helm 3](#basic-commands-of-helm-3)
@@ -376,6 +377,52 @@ helmfile --version
 Credits: Juan Pablo Perez - https://www.linkedin.com/in/juanpabloperezpeelmicro/ 
 
 https://github.com/peelmicro/learn-devops-the-complete-kubernetes-course
+
+---
+
+
+## Install Sops
+
+Simple shell function for sops installation in Linux 64 bits.
+
+Sops documentation: https://github.com/mozilla/sops
+
+Copy and paste this code:
+
+```bash
+sudo su
+
+function install_sops {
+if [ -z $(which sops) ]; then
+    VERSION_SOPS=$(curl -s https://api.github.com/repos/mozilla/sops/releases/latest | grep tag_name | cut -d '"' -f 4)
+    curl -LO https://github.com/mozilla/sops/releases/download/$VERSION_SOPS/sops-$VERSION_SOPS.linux
+    mv sops-$VERSION_SOPS.linux /usr/local/bin/sops
+    chmod +x /usr/local/bin/sops
+else
+    echo "sops is most likely installed"
+fi
+}
+
+install_sops
+
+which sops
+
+sops --version
+
+exit
+```
+
+Create and configure the file sops: ``~/.sops.yaml`` with follow content.
+
+```bash
+creation_rules:
+  - kms: 'PATH_ARN_KEY_SYMMETRIC'
+    aws_profile: default
+```
+
+Where ``PATH_ARN_KEY_SYMMETRIC`` must be replaced with the symmetric key ARN created in AWS KMS services, as shown in the following example.
+
+![alt text](images/find-key-arn-new-new.png "PATH_ARN_KEY_SYMMETRIC")
 
 ---
 
