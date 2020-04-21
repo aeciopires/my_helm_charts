@@ -6,7 +6,7 @@ zabbixServer:
   replicaCount: 1
   image:
     repository: zabbix/zabbix-server-pgsql
-    tag: ubuntu-4.4.6
+    tag: ubuntu-4.4.8
     pullPolicy: IfNotPresent
   DB_SERVER_HOST: "zabbix-postgresql"
   POSTGRES_USER: "zabbix"

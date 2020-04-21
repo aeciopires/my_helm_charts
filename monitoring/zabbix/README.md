@@ -98,7 +98,7 @@ kubectl create namespace monitoring
 Deploy Zabbix in cluster Kubernetes.
 
 ```bash
-helm secrets install zabbix \
+helm secrets upgrade zabbix \
  -f ~/my_helm_charts/monitoring/zabbix/minikube/values.yaml \
  -f ~/my_helm_charts/monitoring/zabbix/minikube/secrets.yaml \
  cetic/zabbix -n monitoring --install
