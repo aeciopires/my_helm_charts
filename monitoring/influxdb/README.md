@@ -11,12 +11,15 @@
 - [Commands to Publish Helm Chart](#commands-to-publish-helm-chart)
   - [Helm repo with support S3 in AWS.](#helm-repo-with-support-s3-in-aws)
   - [Helm repo with support GCS na GCP.](#helm-repo-with-support-gcs-na-gcp)
+- [Commands to Install My Helm Chart of InfluxDB](#commands-to-install-my-helm-chart-of-influxdb)
 
 <!-- TOC -->
 
 # About
 
 My first Helm Charts of InfluxDB for Kubernetes.
+
+    ATTENTION: Create this chart for learning purposes only. To install InfluxDB using the official Helm Chart visit https://github.com/influxdata/helm-charts
 
 ## Contributing
 
@@ -33,28 +36,28 @@ GPL-3.0 2020 Aécio dos Santos Pires
 
 # Commands to Generate Helm Chart
 
-Create a chart
+Creating my chart of influxdb.
 
 ```bash
 cd my_helm_charts/monitoring
 
-helm create NAME_CHART
+helm create influxdb
 ```
 
-Lint sintax chart
+Lint sintax chart of influxdb.
 
 ```bash
 my_helm_charts/monitoring
 
-helm lint NAME_CHART
+helm lint influxdb
 ```
 
-Package chart
+Package chart of influxdb.
 
 ```bash
 my_helm_charts/monitoring
 
-helm package NAME_CHART
+helm package influxdb
 ```
 
 # Commands to Publish Helm Chart
@@ -81,13 +84,13 @@ This command generates an empty `index.yaml` and uploads it to the S3 bucket und
 To work with this repo by it's name, first you need to add it using native helm command:
 
 ```bash
-helm repo add myhelmcharts s3://myhelmcharts.myenvtest.com/charts
+helm repo add myhelmcharts_s3 s3://myhelmcharts.myenvtest.com/charts
 ```
 
 Now you can push your chart to this repo.
 
 ```bash
-helm s3 push ./influxdb-0.1.0.tgz myhelmcharts
+helm s3 push ./influxdb-0.1.0.tgz myhelmcharts_s3
 ```
 
 On push, both remote and local repo indexes are automatically updated (that means you don't need to run helm repo update).
@@ -157,3 +160,73 @@ Credits: Igor Zibarev hypnoglow@gmail.com
 https://github.com/hayorov/helm-gcs
 
 ---
+
+# Commands to Install My Helm Chart of InfluxDB
+
+
+Download and configure the parameters for deploy of InfluxDB.
+
+```bash
+cd ~
+git clone https://github.com/aeciopires/my_helm_charts.git
+```
+
+Edit ``my_helm_charts/monitoring/influxdb/values.yaml`` file.
+
+List the namespaces of cluster.
+
+```bash
+kubectl get namespaces
+```
+
+Create the namespaces ``monitoring`` if not exists in cluster.
+
+```bash
+kubectl create namespace monitoring
+```
+
+Deploy InfluxDB with my Helm Chart in cluster Kubernetes.
+
+```bash
+helm install influxdb  -f ~/my_helm_charts/monitoring/influxdb/values.yaml ~/my_helm_charts/monitoring/influxdb  -n monitoring
+```
+
+View the pods of InfluxDB.
+
+```bash
+kubectl get pods -n monitoring
+```
+
+View informations of deployment and service InfluxDB.
+
+```bash
+kubectl describe deployments influxdb -n monitoring
+kubectl describe svc/influxdb -n monitoring
+```
+
+View the logs of InfluxDB.
+
+```bash
+kubectl logs -f svc/influxdb -n monitoring
+kubectl logs -f pods/NAME_POD -n monitoring
+```
+
+Access prompt of container of InfluxDB.
+
+```bash
+kubectl exec -it svc/influxdb -n monitoring -- sh
+```
+
+Listen on port 8080 locally, forwarding to 9999 in the pod.
+
+```bash
+kubectl port-forward svc/influxdb 8080:9999 -n monitoring
+```
+
+Access InfluxDB in http://localhost:8080.
+
+To uninstall the InfluxDB.
+
+```bash
+helm delete influxdb -n monitoring
+```

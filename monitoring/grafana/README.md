@@ -73,6 +73,18 @@ cd ~
 git clone https://github.com/aeciopires/my_helm_charts.git
 ```
 
+Edit ``my_helm_charts/monitoring/grafana/minikube/values.yaml`` file.
+
+Edit ``my_helm_charts/monitoring/grafana/minikube/secrets.yaml`` file with follow command or create your file of secrets and encrypt with ``helm secrets enc PATH_FILE_SECRETS`` command (see https://github.com/zendesk/helm-secrets). Where ``PATH_FILE_SECRETS`` must be replaced with the path to your new secrets file.
+
+```bash
+helm secrets edit my_helm_charts/monitoring/grafana/minikube/secrets.yaml
+```
+
+| Properties in secret.yaml file     | Default Values |
+|:-----------------------------------|:---------------|
+| admin.password                     | adminadmin     |
+
 List the namespaces of cluster.
 
 ```bash
@@ -101,17 +113,11 @@ View the pods of Grafana.
 kubectl get pods -n monitoring
 ```
 
-View informations of service Grafana.
+View informations of deployment and service Grafana.
 
 ```bash
 kubectl describe deployments grafana -n monitoring
 kubectl describe svc/grafana -n monitoring
-```
-
-View informations of pod Grafana.
-
-```bash
-kubectl describe deployments grafana -n monitoring
 ```
 
 View the logs of Grafana.
@@ -126,5 +132,18 @@ Access prompt of container of Grafana.
 kubectl exec -it svc/grafana -n monitoring -- sh
 ```
 
-The URL, login and password will show after deploy of Grafana. Follow the instructions.
+Listen on port 8080 locally, forwarding to 3000 in the pod.
+
+```bash
+kubectl port-forward svc/grafana 8080:3000 -n monitoring
+```
+
+Access Grafana in http://localhost:8080. Login ``admin`` and password ``adminadmin``.
+
+To uninstall the Grafana.
+
+```bash
+helm delete grafana -n monitoring
+```
+
 
