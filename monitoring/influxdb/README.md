@@ -7,19 +7,19 @@
   - [Contributing](#contributing)
   - [Developers](#developers)
   - [License](#license)
-- [Commands to Generate Helm Chart](#commands-to-generate-helm-chart)
-- [Commands to Publish Helm Chart](#commands-to-publish-helm-chart)
+- [Commands to generate Helm Chart](#commands-to-generate-helm-chart)
+- [Commands to publish Helm Chart](#commands-to-publish-helm-chart)
   - [Helm repo with support S3 in AWS.](#helm-repo-with-support-s3-in-aws)
-  - [Helm repo with support GCS na GCP.](#helm-repo-with-support-gcs-na-gcp)
-- [Commands to Install My Helm Chart of InfluxDB](#commands-to-install-my-helm-chart-of-influxdb)
+  - [Helm repo with support GCS in GCP.](#helm-repo-with-support-gcs-in-gcp)
+- [Commands to install my Helm Chart of InfluxDB](#commands-to-install-my-helm-chart-of-influxdb)
 
 <!-- TOC -->
 
 # About
 
-My first Helm Charts of InfluxDB for Kubernetes.
+My first Helm chart of InfluxDB for Kubernetes.
 
-    ATTENTION: Create this chart for learning purposes only. To install InfluxDB using the official Helm Chart visit https://github.com/influxdata/helm-charts
+    ATTENTION: Created this chart for learning purposes only. To install InfluxDB using the official Helm Chart visit https://github.com/influxdata/helm-charts
 
 ## Contributing
 
@@ -27,14 +27,14 @@ See instructions in [README](https://github.com/aeciopires/my_helm_charts/blob/m
 
 ## Developers
 
-developer: Aécio dos Santos Pires<br>
-mail: http://blog.aeciopires.com/contato
+Developer: Aécio dos Santos Pires<br>
+Mail: http://blog.aeciopires.com/contato
 
 ## License
 
 GPL-3.0 2020 Aécio dos Santos Pires
 
-# Commands to Generate Helm Chart
+# Commands to generate Helm Chart
 
 Creating my chart of influxdb.
 
@@ -60,7 +60,7 @@ my_helm_charts/monitoring
 helm package influxdb
 ```
 
-# Commands to Publish Helm Chart
+# Commands to publish Helm Chart
 
 ## Helm repo with support S3 in AWS.
 
@@ -93,7 +93,7 @@ Now you can push your chart to this repo.
 helm s3 push ./influxdb-0.1.0.tgz myhelmcharts_s3
 ```
 
-On push, both remote and local repo indexes are automatically updated (that means you don't need to run helm repo update).
+On push, both remote and local repo indexes are automatically updated (that means you don't need to run ``helm repo update``).
 
 Your pushed chart is available:
 
@@ -111,7 +111,7 @@ https://github.com/hypnoglow/helm-s3
 
 ---
 
-## Helm repo with support GCS na GCP.
+## Helm repo with support GCS in GCP.
 
 * https://github.com/hayorov/helm-gcs
 
@@ -161,7 +161,7 @@ https://github.com/hayorov/helm-gcs
 
 ---
 
-# Commands to Install My Helm Chart of InfluxDB
+# Commands to install my Helm Chart of InfluxDB
 
 
 Download and configure the parameters for deploy of InfluxDB.
@@ -185,7 +185,7 @@ Create the namespaces ``monitoring`` if not exists in cluster.
 kubectl create namespace monitoring
 ```
 
-Deploy InfluxDB with my Helm Chart in cluster Kubernetes.
+Deploy InfluxDB with my Helm Chart in Kubernetes cluster.
 
 ```bash
 helm install influxdb  -f ~/my_helm_charts/monitoring/influxdb/values.yaml ~/my_helm_charts/monitoring/influxdb  -n monitoring
@@ -197,7 +197,7 @@ View the pods of InfluxDB.
 kubectl get pods -n monitoring
 ```
 
-View informations of deployment and service InfluxDB.
+View informations of deployment and InfluxDB service.
 
 ```bash
 kubectl describe deployments influxdb -n monitoring

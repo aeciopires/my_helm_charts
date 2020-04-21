@@ -8,8 +8,8 @@
   - [Credits](#credits)
   - [Developers](#developers)
   - [License](#license)
-- [Prerequisites to Development and Test of Helm Charts](#prerequisites-to-development-and-test-of-helm-charts)
-- [How to Deploy Zabbix in Kubernetes](#how-to-deploy-zabbix-in-kubernetes)
+- [Prerequisites to develop and test of Helm Charts](#prerequisites-to-develop-and-test-of-helm-charts)
+- [How to deploy Zabbix in Kubernetes](#how-to-deploy-zabbix-in-kubernetes)
 
 <!-- TOC -->
 
@@ -29,20 +29,20 @@ Contribuitors of GitHub Repo https://github.com/cetic/helm-zabbix
 
 ## Developers
 
-developer: Aécio dos Santos Pires<br>
-mail: http://blog.aeciopires.com/contato
+Developer: Aécio dos Santos Pires<br>
+Mail: http://blog.aeciopires.com/contato
 
 ## License
 
 GPL-3.0 2020 Aécio dos Santos Pires
 
-# Prerequisites to Development and Test of Helm Charts
+# Prerequisites to develop and test of Helm Charts
 
 Visit https://github.com/aeciopires/my_helm_charts
 
-# How to Deploy Zabbix in Kubernetes
+# How to deploy Zabbix in Kubernetes
 
-Create or access cluster Kubernetes and configure the kubectl.
+Create or access Kubernetes cluster and configure the kubectl.
 
 Install Helm 3 (visit https://github.com/aeciopires/my_helm_charts).
 
@@ -95,7 +95,7 @@ Create the namespaces ``monitoring`` if not exists in cluster.
 kubectl create namespace monitoring
 ```
 
-Deploy Zabbix in cluster Kubernetes.
+Deploy Zabbix in Kubernetes cluster.
 
 ```bash
 helm secrets upgrade zabbix \
@@ -134,7 +134,7 @@ Access prompt of container.
 kubectl exec -it pods/NAME_POD -c NAME_CONTAINER -n monitoring -- sh
 ```
 
-View informations of service Grafana.
+View informations of Zabbix service.
 
 ```bash
 kubectl get svc

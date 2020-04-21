@@ -9,9 +9,9 @@
   - [Contributing](#contributing)
   - [Developers](#developers)
   - [License](#license)
-- [Prerequisites to Development and Test of Helm Charts](#prerequisites-to-development-and-test-of-helm-charts)
-  - [Configure Access Account AWS](#configure-access-account-aws)
-  - [AWS Regions and Availability Zones](#aws-regions-and-availability-zones)
+- [Prerequisites to develop and test of Helm Charts](#prerequisites-to-develop-and-test-of-helm-charts)
+  - [Configure access AWS account](#configure-access-aws-account)
+  - [AWS regions and availability zones](#aws-regions-and-availability-zones)
   - [Install Docker-CE](#install-docker-ce)
   - [Install Kops](#install-kops)
   - [Install Terraform 0.11](#install-terraform-011)
@@ -20,11 +20,11 @@
   - [Install Helm 3](#install-helm-3)
   - [Install Helmfile](#install-helmfile)
   - [Install Sops](#install-sops)
-- [Management Kubernetes Cluster in Test Environment in AWS](#management-kubernetes-cluster-in-test-environment-in-aws)
-  - [Access SSH Kubernetes Nodes](#access-ssh-kubernetes-nodes)
-- [Basic Commands of Helm 3](#basic-commands-of-helm-3)
-  - [More Installation Methods](#more-installation-methods)
-- [Creating Your Own Charts](#creating-your-own-charts)
+- [Management Kubernetes cluster in test environment in AWS](#management-kubernetes-cluster-in-test-environment-in-aws)
+  - [Access SSH Kubernetes nodes](#access-ssh-kubernetes-nodes)
+- [Basic commands of Helm 3](#basic-commands-of-helm-3)
+  - [More installation methods](#more-installation-methods)
+- [Creating your own charts](#creating-your-own-charts)
 
 <!-- TOC -->
 
@@ -55,9 +55,9 @@ mail: http://blog.aeciopires.com/contato
 
 GPL-3.0 2020 Aécio dos Santos Pires
 
-# Prerequisites to Development and Test of Helm Charts
+# Prerequisites to develop and test of Helm Charts
 
-## Configure Access Account AWS
+## Configure access AWS account
 
 
 You will need to create an Amazon AWS account. Create a 'Free Tier' account at Amazon https://aws.amazon.com/ follow the instructions on the pages: https://docs.aws.amazon.com/chime/latest/ag/aws-account.html and https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html. When creating the account you will need to register a credit card, but since you will create instances using the features offered by the 'Free Tier' plan, nothing will be charged if you do not exceed the limit for the use of the features and time offered and described in the previous link.
@@ -101,7 +101,7 @@ sudo apt-get -y install awscli
 ```
 
 
-## AWS Regions and Availability Zones
+## AWS regions and availability zones
 
 List of regions and availability zones in AWS.
 
@@ -292,7 +292,7 @@ https://github.com/peelmicro/learn-devops-the-complete-kubernetes-course
 
 ## Install Helm 3
 
-Execute os seguintes comandos para instalar o helm3.
+Execute these commands to install helm 3.
 
 Documentation: https://helm.sh/docs/
 
@@ -339,7 +339,7 @@ https://github.com/peelmicro/learn-devops-the-complete-kubernetes-course
 
 ## Install Helmfile
 
-Execute os seguintes comandos para instalar o helm.
+Execute these commands to install Helmfile.
 
 Documentation: https://github.com/roboll/helmfile
 
@@ -426,7 +426,7 @@ Where ``PATH_ARN_KEY_SYMMETRIC`` must be replaced with the symmetric key ARN cre
 
 ---
 
-# Management Kubernetes Cluster in Test Environment in AWS
+# Management Kubernetes cluster in test environment in AWS
 
 How to start Kubernetes cluster by using Kops and Terraform
 
@@ -523,7 +523,7 @@ https://github.com/peelmicro/learn-devops-the-complete-kubernetes-course
 ---
 
 
-## Access SSH Kubernetes Nodes
+## Access SSH Kubernetes nodes
 
 How to SSH to physical EC2 instances in AWS
 
@@ -541,7 +541,7 @@ https://github.com/peelmicro/learn-devops-the-complete-kubernetes-course
 
 ---
 
-# Basic Commands of Helm 3
+# Basic commands of Helm 3
 
 Add Helm repo official stable charts:
 
@@ -626,7 +626,7 @@ Credits: Helm Doc Community
 
 ---
 
-## More Installation Methods
+## More installation methods
 
 The helm install command can install from several sources:
 
@@ -644,7 +644,7 @@ Credits: Helm Doc Community
 
 ---
 
-# Creating Your Own Charts
+# Creating your own charts
 
 See documentation:
 

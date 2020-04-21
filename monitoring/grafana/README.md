@@ -8,14 +8,14 @@
   - [Credits](#credits)
   - [Developers](#developers)
   - [License](#license)
-- [Prerequisites to Development and Test of Helm Charts](#prerequisites-to-development-and-test-of-helm-charts)
-- [How to Deploy Grafana in Kubernetes with Helm](#how-to-deploy-grafana-in-kubernetes-with-helm)
+- [Prerequisites to develop and test of Helm Charts](#prerequisites-to-develop-and-test-of-helm-charts)
+- [How to deploy Grafana in Kubernetes with Helm](#how-to-deploy-grafana-in-kubernetes-with-helm)
 
 <!-- TOC -->
 
 # About
 
-My Helm Values for deploy of Grafana with Helm Charts developed by Bitnami.
+My Helm values for deploy of Grafana with Helm Chart developed by Bitnami.
 
 ## Contributing
 
@@ -31,20 +31,20 @@ Team Bitnami. Visit:
 
 ## Developers
 
-developer: Aécio dos Santos Pires<br>
+Developer: Aécio dos Santos Pires<br>
 mail: http://blog.aeciopires.com/contato
 
 ## License
 
 GPL-3.0 2020 Aécio dos Santos Pires
 
-# Prerequisites to Development and Test of Helm Charts
+# Prerequisites to develop and test of Helm Charts
 
 Visit https://github.com/aeciopires/my_helm_charts
 
-# How to Deploy Grafana in Kubernetes with Helm
+# How to deploy Grafana in Kubernetes with Helm
 
-Create or access cluster Kubernetes and configure the kubectl.
+Create or access Kubernetes cluster and configure the kubectl.
 
 Install Helm 3 (visit https://github.com/aeciopires/my_helm_charts).
 
@@ -60,7 +60,7 @@ Download repo charts of Bitnami.
 helm repo add bitnami https://charts.bitnami.com/bitnami
 ```
 
-Execute Helm Update if repo bitnami is installed.
+Execute the follow command if bitnami repository is installed.
 
 ```bash
 helm repo update
@@ -97,7 +97,7 @@ Create the namespaces ``monitoring`` if not exists in cluster.
 kubectl create namespace monitoring
 ```
 
-Deploy Grafana with Helm in cluster Kubernetes.
+Deploy Grafana with Helm in Kubernetes cluster.
 
 ```bash
 helm secrets upgrade grafana \
@@ -113,7 +113,7 @@ View the pods of Grafana.
 kubectl get pods -n monitoring
 ```
 
-View informations of deployment and service Grafana.
+View informations of deployment and Grafana service.
 
 ```bash
 kubectl describe deployments grafana -n monitoring
